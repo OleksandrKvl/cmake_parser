@@ -1,7 +1,6 @@
 # Flex & Bison based CMake language parser
 
 ## About
-________
 
 This is an experimental [CMake language](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html#bracket-comment) parser that uses Flex & Bison. I used it as a playground for a `command reference` feature, i.e., using command's result as
 an argument to another command:
@@ -39,7 +38,6 @@ f(unquoted "quoted" [[bracket]])
 Comments are not included in the output.
 
 ## Usage
-________
 
 The most common use cases are:
 - interactive(live) mode. Just run `cmake_parser` and print commands.
@@ -51,7 +49,6 @@ Last two might be useful in file-mode to estimate parse speed or memory usage.
 To get all options run `cmake_parser --help`.
 
 ## Build
-________
 
 C++17 compiler is required.
 ```sh
@@ -63,6 +60,6 @@ cmake --build .
 
 ## Differences between this and CMake
 
-My main source of CMake syntax was [this page](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html#bracket-comment).
+My main source of CMake syntax knowledge was [this page](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html#bracket-comment).
 However, actual CMake implementation doesn't fully correspond to that BNF.
-Because of that some inconsistencies are possible.
+Thus, some inconsistencies are possible.
