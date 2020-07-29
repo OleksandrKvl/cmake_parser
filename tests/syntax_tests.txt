@@ -1,0 +1,185 @@
+#
+#[[]]
+#[[dd]]
+#[==[]==]
+#[=[dsdsd]=]
+#comments
+    # comment after spaces
+#[[
+bracket comment
+]]
+#[[dsds
+]]
+#[[
+dsds
+]]
+#[[dsds]]
+#[[dsds
+dsds]]
+#[==[dsdsdsds]==dsdsd]==]
+
+#bracket_comment inside arguments
+f(a #[[comment]] b)
+
+#command_invocation
+
+fd()
+ ds()
+  dsd ()
+dsd() ##
+ds()##
+ds()#[[dsdsd
+]]
+ds() #[[
+    dsdsdsdsdsd
+    sdsd]]
+dsd (  )
+f ()#[[]]#[[]]#dsds
+f () #[[]] #[[]] #dsds  
+f () #[[
+]] #[[
+    
+]] #dsds  
+# bracket args
+dsd([[dsdsd]])
+dsd(
+    [[dsdsd]]
+)
+dsd(
+    [[dsdsd]]
+    [[dsdsd]]
+)
+dsd(
+    [[dsdsd]] [[dsdsd]]
+)
+dsd([[dsdsd]] [[dsdsd]])
+
+# quoted args
+f("")
+f("dsd")
+f("a" "b")
+f("d" "dsd\
+dsds"
+)
+
+f("abc
+def")
+f("abc\
+def")
+f("abc\            
+def")
+
+# escapes in quoted args
+f("\#\t\r\n\;\(\)")
+f("\\")
+f("a\\")
+f("\\a")
+
+# variable references in quoted args
+f("${}")
+f("${$}")
+f("${abc}")
+f("${X/_.+-Y\t\r\n\;\$}")
+f("$ENV{env_var}")
+f("$CACHE{cache_var}")
+
+# command reference in quoted reference
+f("${f()}")
+f("${xx("hi")}")
+f("${xx(
+    "hello"
+    "world"
+)}")
+
+# mix with bracket arguments
+f([[
+xxxx
+]]
+"${xx(
+    "hello"
+    "world"
+    [==[dsdsdsdsds
+    dsds]==]
+)}")
+
+# nested references
+f("${${x}}")
+
+#mixed references
+f("${abc_${d}}")
+f("${abc_${d}_efg}")
+
+f("${abc_${d(
+    "e" "${f}"
+    )}_gh}"
+)
+
+# unquoted args
+dsd ( dsds )
+dsd ( 
+    dsd 
+    sdsd
+)
+dsd (   #dsds
+    arg #arg
+)
+
+dsd( ( (dsd sds sd) dsd ) sds)
+dsd( dsds
+    (dsds dsd)
+    (ds sd)
+    dsds
+ )
+f(a b c)
+f()
+f(
+    $;\r\n\t\;\$
+    ${x}        #aa
+    $ENV{x}     #bb    
+    $CACHE{x}   #cc
+    rr
+)
+
+# escapes in unquoted args
+f(\\)
+f(a\\)
+f(\\a)
+
+# unquoted references
+f(${})
+f(${x})
+f(${f()})
+f(${\t\r\n\;xxx})
+
+# unquoted reference calls
+f(${f()})
+f(${xx("hi")})
+f(${xx(
+    "hello"
+    "world"
+)})
+
+# mix
+f(
+    [[
+        xxxx
+    ]]
+    ${xx(
+        "hello"
+        "world"
+        [==[dsdsdsdsds
+        dsds]==]
+    )}
+    "arg"
+    "${f(a b c)}"
+)
+
+# legacy, make-style references
+f($(x))
+f(x$(y))
+
+# legacy, unquoted followed by quoted
+f(a"b")
+f(a"b"c"d"e)
+
+f(done)
