@@ -50,7 +50,9 @@ To get all options run `cmake_parser --help`.
 
 ## Build
 
-C++17 compiler is required.
+C++17 compiler is required. 
+If Flex 2.6.4 and Bison 3.6.1 are found they will be used to regenerate scanner/parser
+files. Otherwise pre-generated files are used.
 ```sh
 mkdir build
 cd build

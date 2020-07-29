@@ -1,9 +1,6 @@
 /* Stop when reach the end of yyin */
 %option noyywrap
 
-/* Keep track of line numbers, do we need this if we use bison's location? */
-/* %option yylineno */
-
 /* No default action for unrecognized symbols */
 %option nodefault
 
