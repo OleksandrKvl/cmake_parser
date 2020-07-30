@@ -40,25 +40,26 @@ Comments are not included in the output.
 ## Usage
 
 The most common use cases are:
-- interactive(live) mode. Just run `cmake_parser` and print commands.
+- interactive(live) mode. Just run `cmake_parser` and type commands.
 - input from file, `cmake_parser -if file_path`.
 - evaluation after all input is parsed, `cmake_parser -ep`.
 - disable evaluation, `cmake_parser -ed`.
 
 Last two might be useful in file-mode to estimate parse speed or memory usage.
-To get all options run `cmake_parser --help`.
+Keep in mind that current configuration is just proof-of-concept, it's not designed for the best performance, additional options should be added/removed for that. To get all options run `cmake_parser --help`.
 
 ## Build
 
-C++17 compiler is required. 
-If Flex 2.6.4 and Bison 3.6.1 are found they will be used to regenerate scanner/parser
-files. Otherwise pre-generated files are used.
 ```sh
 mkdir build
 cd build
 cmake ..
 cmake --build .
 ```
+C++17 compiler is required. 
+If Flex 2.6.4 and Bison 3.6.1 are found, they will be used to regenerate scanner/parser files. Otherwise pre-generated files are used. I'm using Ubuntu, actual 
+scanner/parser generation hasn't been tested on Windows, only build using 
+pre-generated files.
 
 ## Differences between this and CMake
 
