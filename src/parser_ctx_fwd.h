@@ -1,6 +1,6 @@
 #ifndef CP_PARSER_CTX_FWD_H
 #define CP_PARSER_CTX_FWD_H
 
-class ParserCtx;
+struct ParserCtx;
 
 #endif // CP_PARSER_CTX_FWD_H
