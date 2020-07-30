@@ -32,7 +32,7 @@
 
 
 /**
- ** \file /home/dark/Documents/src/cmake_parser/build/src/parser.h
+ ** \file /home/dark/Documents/src/cmake_parser/build_Debug/src/parser.h
  ** Define the yy::parser class.
  */
 
@@ -42,8 +42,8 @@
 // especially those whose name start with YY_ or yy_.  They are
 // private implementation details that can be changed or removed.
 
-#ifndef YY_YY_HOME_DARK_DOCUMENTS_SRC_CMAKE_PARSER_BUILD_SRC_PARSER_H_INCLUDED
-# define YY_YY_HOME_DARK_DOCUMENTS_SRC_CMAKE_PARSER_BUILD_SRC_PARSER_H_INCLUDED
+#ifndef YY_YY_HOME_DARK_DOCUMENTS_SRC_CMAKE_PARSER_BUILD_DEBUG_SRC_PARSER_H_INCLUDED
+# define YY_YY_HOME_DARK_DOCUMENTS_SRC_CMAKE_PARSER_BUILD_DEBUG_SRC_PARSER_H_INCLUDED
 // "%code requires" blocks.
 #line 34 "parser.y"
 
@@ -59,7 +59,7 @@
     
     using yyscan_t = void*;
 
-#line 63 "/home/dark/Documents/src/cmake_parser/build/src/parser.h"
+#line 63 "/home/dark/Documents/src/cmake_parser/build_Debug/src/parser.h"
 
 # include <cassert>
 # include <cstdlib> // std::abort
@@ -193,7 +193,7 @@
 #endif
 
 namespace yy {
-#line 197 "/home/dark/Documents/src/cmake_parser/build/src/parser.h"
+#line 197 "/home/dark/Documents/src/cmake_parser/build_Debug/src/parser.h"
 
 
 
@@ -1697,7 +1697,7 @@ switch (yykind)
   }
 
 } // yy
-#line 1701 "/home/dark/Documents/src/cmake_parser/build/src/parser.h"
+#line 1701 "/home/dark/Documents/src/cmake_parser/build_Debug/src/parser.h"
 
 
 
@@ -1706,7 +1706,7 @@ switch (yykind)
 
     #define YY_DECL yy::parser::symbol_type yylex(yyscan_t yyscanner)
 
-#line 1710 "/home/dark/Documents/src/cmake_parser/build/src/parser.h"
+#line 1710 "/home/dark/Documents/src/cmake_parser/build_Debug/src/parser.h"
 
 
-#endif // !YY_YY_HOME_DARK_DOCUMENTS_SRC_CMAKE_PARSER_BUILD_SRC_PARSER_H_INCLUDED
+#endif // !YY_YY_HOME_DARK_DOCUMENTS_SRC_CMAKE_PARSER_BUILD_DEBUG_SRC_PARSER_H_INCLUDED

@@ -2,9 +2,10 @@
 #define yyHEADER_H 1
 #define yyIN_HEADER 1
 
-#line 6 "/home/dark/Documents/src/cmake_parser/build/src/scanner.h"
+#line 6 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.h"
+#include <cstdint>
 
-#line 8 "/home/dark/Documents/src/cmake_parser/build/src/scanner.h"
+#line 9 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.h"
 
 #define  YY_INT_ALIGNED short int
 
@@ -608,9 +609,9 @@ extern int yylex (yyscan_t yyscanner);
 #undef yyTABLES_NAME
 #endif
 
-#line 491 "scanner.l"
+#line 501 "scanner.l"
 
 
-#line 615 "/home/dark/Documents/src/cmake_parser/build/src/scanner.h"
+#line 616 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.h"
 #undef yyIN_HEADER
 #endif /* yyHEADER_H */

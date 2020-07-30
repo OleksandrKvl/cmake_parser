@@ -1,6 +1,7 @@
-#line 2 "/home/dark/Documents/src/cmake_parser/build/src/scanner.cpp"
+#line 2 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.cpp"
+#include <cstdint>
 
-#line 4 "/home/dark/Documents/src/cmake_parser/build/src/scanner.cpp"
+#line 5 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -633,11 +634,11 @@ static const flex_int16_t yy_chk[432] =
 
 static const flex_int16_t yy_rule_linenum[42] =
     {   0,
-       86,   93,  100,  107,  112,  116,  121,  141,  150,  169,
-      177,  194,  199,  208,  217,  238,  243,  248,  254,  259,
-      264,  269,  274,  284,  299,  314,  330,  335,  340,  348,
-      353,  357,  369,  381,  399,  409,  433,  438,  451,  467,
-      471
+       96,  103,  110,  117,  122,  126,  131,  151,  160,  179,
+      187,  204,  209,  218,  227,  248,  253,  258,  264,  269,
+      274,  279,  284,  294,  309,  324,  340,  345,  350,  358,
+      363,  367,  379,  391,  409,  419,  443,  448,  461,  477,
+      481
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -649,16 +650,17 @@ static const flex_int16_t yy_rule_linenum[42] =
 #define YY_RESTORE_YY_MORE_OFFSET
 #line 1 "scanner.l"
 /* Stop when reach the end of yyin */
-/* Keep track of line numbers, do we need this if we use bison's location? */
-/* %option yylineno */
 /* No default action for unrecognized symbols */
 /* Allow to manage current state using yy_push/pop_state() */
 /* Enable flex warnings */
 /* Enable debug output when yy_flex_debug is 1 */
 /* Suppresses inclusion of the non-ANSI header file unistd.h */
-/* %option nounistd */
+#define YY_NO_UNISTD_H 1
 /* We don't need interactive mode and related code */
-/* %option never-interactive */
+/*
+%option never-interactive
+%option batch
+*/
 /* We don't need these functions */
 #define YY_NO_INPUT 1
 /* Create pure scanner */
@@ -674,10 +676,13 @@ static const flex_int16_t yy_rule_linenum[42] =
 
 
 
-#line 48 "scanner.l"
+
+#line 52 "scanner.l"
 #include <limits>
 #include "parser.h"
 #include "scanner_ctx.h"
+
+int isatty(int fd);
 
 void PushState(const int new_state, yyscan_t yyscanner);
 void PopState(yyscan_t yyscanner);
@@ -695,8 +700,8 @@ yy::parser::symbol_type GetPreRefToken(
     const yy::parser::location_type& location);
 
 #define YY_USER_ACTION  location.columns(yyleng);
-#line 699 "/home/dark/Documents/src/cmake_parser/build/src/scanner.cpp"
-#line 700 "/home/dark/Documents/src/cmake_parser/build/src/scanner.cpp"
+#line 704 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.cpp"
+#line 705 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.cpp"
 
 #define INITIAL 0
 #define BOM 1
@@ -1034,10 +1039,10 @@ YY_DECL
 
 	{
 /* %% [7.0] user's declarations go here */
-#line 70 "scanner.l"
+#line 76 "scanner.l"
 
 
-#line 73 "scanner.l"
+#line 79 "scanner.l"
     auto& location = yyextra->location;
     auto& nextToken = yyextra->nextToken;
     auto& stringLiteral = yyextra->stringLiteral;
@@ -1045,13 +1050,17 @@ YY_DECL
     if(!nextToken.empty())
     {
         location = nextToken.location;
-        return std::move(nextToken);
+        // current yy::parser::symbol_type doesn't clear moved-from token,
+        // thus, we need to do this manually
+        auto token = std::move(nextToken);
+		nextToken.clear();
+        return token;
     }
     location.step();
 
 
     /* UTF-8 BOM */
-#line 1055 "/home/dark/Documents/src/cmake_parser/build/src/scanner.cpp"
+#line 1064 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1133,7 +1142,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 86 "scanner.l"
+#line 96 "scanner.l"
 {
     PushState(FILE_LINE, yyscanner);
 
@@ -1143,7 +1152,7 @@ YY_RULE_SETUP
 /* Detect UTF-16/32 BE/LE BOMs but don't support them */
 case 2:
 YY_RULE_SETUP
-#line 93 "scanner.l"
+#line 103 "scanner.l"
 {
     PushState(FILE_LINE, yyscanner);
 
@@ -1154,7 +1163,7 @@ YY_RULE_SETUP
 case 3:
 /* rule 3 can match eol */
 YY_RULE_SETUP
-#line 100 "scanner.l"
+#line 110 "scanner.l"
 {
     PushState(FILE_LINE, yyscanner);
 
@@ -1164,7 +1173,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 107 "scanner.l"
+#line 117 "scanner.l"
 {
     return yy::parser::make_IDENTIFIER(
         {yytext, static_cast<std::string::size_type>(yyleng)}, location);
@@ -1172,14 +1181,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 112 "scanner.l"
+#line 122 "scanner.l"
 {
     return yy::parser::make_OPEN_PAREN(location);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 116 "scanner.l"
+#line 126 "scanner.l"
 {
     return yy::parser::make_CLOSE_PAREN(location);
 }
@@ -1188,7 +1197,7 @@ YY_RULE_SETUP
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 121 "scanner.l"
+#line 131 "scanner.l"
 {
     yyextra->isBracketArg = (yytext[0] != '#');
 
@@ -1211,7 +1220,7 @@ YY_RULE_SETUP
 /* Possible end of bracket scope */
 case 8:
 YY_RULE_SETUP
-#line 141 "scanner.l"
+#line 151 "scanner.l"
 {
     stringLiteral.Append(yytext, yyleng);
     if(yyleng == (yyextra->bracketsLength - 1))
@@ -1224,7 +1233,7 @@ YY_RULE_SETUP
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 150 "scanner.l"
+#line 160 "scanner.l"
 {
     const auto endsWithLf = (yytext[yyleng - 1] == '\n');
     
@@ -1247,7 +1256,7 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 169 "scanner.l"
+#line 179 "scanner.l"
 {
     if(yyextra->isBracketArg)
     {
@@ -1258,7 +1267,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 177 "scanner.l"
+#line 187 "scanner.l"
 {
     // remove preceding ]=* symbols
     stringLiteral.RemoveLast(yyextra->bracketsLength - 1);
@@ -1278,7 +1287,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 194 "scanner.l"
+#line 204 "scanner.l"
 {
     PushState(COMMENT, yyscanner);
 }
@@ -1287,7 +1296,7 @@ YY_RULE_SETUP
 case 13:
 /* rule 13 can match eol */
 YY_RULE_SETUP
-#line 199 "scanner.l"
+#line 209 "scanner.l"
 {
     location.lines();
 
@@ -1299,7 +1308,7 @@ YY_RULE_SETUP
 /* Start of quoted argument */
 case 14:
 YY_RULE_SETUP
-#line 208 "scanner.l"
+#line 218 "scanner.l"
 {
     stringLiteral.Clear();
 
@@ -1311,7 +1320,7 @@ YY_RULE_SETUP
 /* End of quoted argument */
 case 15:
 YY_RULE_SETUP
-#line 217 "scanner.l"
+#line 227 "scanner.l"
 {
     // append quote if it was part of legacy unquoted argument
     if(TopState(yyscanner) == UNQUOTED_ARG)
@@ -1335,7 +1344,7 @@ YY_RULE_SETUP
 /* Escapes */
 case 16:
 YY_RULE_SETUP
-#line 238 "scanner.l"
+#line 248 "scanner.l"
 {
     static constexpr char tab[] = "\t";
     stringLiteral.AppendNonId(tab, sizeof(tab) - 1);
@@ -1343,7 +1352,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 243 "scanner.l"
+#line 253 "scanner.l"
 {
     static constexpr char cr[] = "\r";
     stringLiteral.AppendNonId(cr, sizeof(cr) - 1);
@@ -1351,7 +1360,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 248 "scanner.l"
+#line 258 "scanner.l"
 {
     static constexpr char lf[] = "\n";
     stringLiteral.AppendNonId(lf, sizeof(lf) - 1);
@@ -1361,7 +1370,7 @@ YY_RULE_SETUP
 case 19:
 /* rule 19 can match eol */
 YY_RULE_SETUP
-#line 254 "scanner.l"
+#line 264 "scanner.l"
 {
     location.lines();
 }
@@ -1370,7 +1379,7 @@ YY_RULE_SETUP
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 259 "scanner.l"
+#line 269 "scanner.l"
 {
     stringLiteral.AppendNonId(&yytext[1], 1);
 }
@@ -1378,7 +1387,7 @@ YY_RULE_SETUP
 /* \; encodes itself in quoted and unquoted arguments */
 case 21:
 YY_RULE_SETUP
-#line 264 "scanner.l"
+#line 274 "scanner.l"
 {
     stringLiteral.Append(yytext, 1 + 1);
 }
@@ -1386,7 +1395,7 @@ YY_RULE_SETUP
 /* \; escapes ; inside reference */
 case 22:
 YY_RULE_SETUP
-#line 269 "scanner.l"
+#line 279 "scanner.l"
 {
     stringLiteral.AppendNonId(&yytext[1], 1);
 }
@@ -1394,7 +1403,7 @@ YY_RULE_SETUP
 /* Not reference */
 case 23:
 YY_RULE_SETUP
-#line 274 "scanner.l"
+#line 284 "scanner.l"
 {
     stringLiteral.AppendNonId(yytext, 1);
 }
@@ -1406,7 +1415,7 @@ YY_RULE_SETUP
 /* Reference */
 case 24:
 YY_RULE_SETUP
-#line 284 "scanner.l"
+#line 294 "scanner.l"
 {
     PushState(REFERENCE, yyscanner);
 
@@ -1424,7 +1433,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 299 "scanner.l"
+#line 309 "scanner.l"
 {
     PushState(REFERENCE, yyscanner);
 
@@ -1442,7 +1451,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 314 "scanner.l"
+#line 324 "scanner.l"
 {
     PushState(REFERENCE, yyscanner);
 
@@ -1461,7 +1470,7 @@ YY_RULE_SETUP
 /* Detect bad reference type, not strictly required but CMake has it */
 case 27:
 YY_RULE_SETUP
-#line 330 "scanner.l"
+#line 340 "scanner.l"
 {
     return yy::parser::make_YYUNDEF(location);
 }
@@ -1469,7 +1478,7 @@ YY_RULE_SETUP
 /* Append any non-special symbols, handle line-by-line */
 case 28:
 YY_RULE_SETUP
-#line 335 "scanner.l"
+#line 345 "scanner.l"
 {
     // stringLiteral.Append(yytext, yyleng);
     stringLiteral.Append(yytext, yyleng);
@@ -1478,7 +1487,7 @@ YY_RULE_SETUP
 case 29:
 /* rule 29 can match eol */
 YY_RULE_SETUP
-#line 340 "scanner.l"
+#line 350 "scanner.l"
 {
     location.lines();
 
@@ -1489,7 +1498,7 @@ YY_RULE_SETUP
 /* Detect IDENTIFIER of a command name */
 case 30:
 YY_RULE_SETUP
-#line 348 "scanner.l"
+#line 358 "scanner.l"
 {
     stringLiteral.AppendId(yytext, yyleng);
 }
@@ -1497,14 +1506,14 @@ YY_RULE_SETUP
 /* General symbols that are allowed in reference */
 case 31:
 YY_RULE_SETUP
-#line 353 "scanner.l"
+#line 363 "scanner.l"
 {
     stringLiteral.AppendNonId(yytext, yyleng);
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 357 "scanner.l"
+#line 367 "scanner.l"
 {
     if(!stringLiteral.IsEmpty() && stringLiteral.IsId())
     {
@@ -1519,7 +1528,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 369 "scanner.l"
+#line 379 "scanner.l"
 {
     if(!stringLiteral.IsEmpty() && stringLiteral.IsId())
     {
@@ -1534,7 +1543,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 381 "scanner.l"
+#line 391 "scanner.l"
 {
     PopState(yyscanner);
 
@@ -1554,7 +1563,7 @@ YY_RULE_SETUP
 /* Start of unquoted argument */
 case 35:
 YY_RULE_SETUP
-#line 399 "scanner.l"
+#line 409 "scanner.l"
 {
     PushState(UNQUOTED_ARG, yyscanner);
     
@@ -1567,7 +1576,7 @@ YY_RULE_SETUP
 /* Start of legacy unquoted argument, e.g. f(a"b") */
 case 36:
 YY_RULE_SETUP
-#line 409 "scanner.l"
+#line 419 "scanner.l"
 {
     if(!stringLiteral.IsEmpty())
     {
@@ -1594,7 +1603,7 @@ YY_RULE_SETUP
     */
 case 37:
 YY_RULE_SETUP
-#line 433 "scanner.l"
+#line 443 "scanner.l"
 {
     stringLiteral.Append(yytext, yyleng);
 }
@@ -1603,7 +1612,7 @@ YY_RULE_SETUP
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 438 "scanner.l"
+#line 448 "scanner.l"
 {
     PopState(yyscanner);
 
@@ -1620,7 +1629,7 @@ YY_RULE_SETUP
 case 39:
 /* rule 39 can match eol */
 YY_RULE_SETUP
-#line 451 "scanner.l"
+#line 461 "scanner.l"
 {
     location.lines();
     return yy::parser::make_EOL(location);
@@ -1638,14 +1647,14 @@ YY_RULE_SETUP
 } */
 case 40:
 YY_RULE_SETUP
-#line 467 "scanner.l"
+#line 477 "scanner.l"
 {
     return yy::parser::make_SPACES(location);
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 471 "scanner.l"
+#line 481 "scanner.l"
 {
     return yy::parser::make_YYUNDEF(location);
 }
@@ -1656,7 +1665,7 @@ YY_RULE_SETUP
     */
 case YY_STATE_EOF(FILE_LINE):
 case YY_STATE_EOF(BOM):
-#line 479 "scanner.l"
+#line 489 "scanner.l"
 {
     auto eof = yy::parser::make_YYEOF(location);
     nextToken.move(eof);
@@ -1673,17 +1682,17 @@ case YY_STATE_EOF(COMMENT):
 case YY_STATE_EOF(QUOTED_ARG):
 case YY_STATE_EOF(REFERENCE):
 case YY_STATE_EOF(UNQUOTED_ARG):
-#line 487 "scanner.l"
+#line 497 "scanner.l"
 {
     return yy::parser::make_YYUNDEF(location);
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 491 "scanner.l"
+#line 501 "scanner.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1687 "/home/dark/Documents/src/cmake_parser/build/src/scanner.cpp"
+#line 1696 "/home/dark/Documents/src/cmake_parser/build_Debug/src/scanner.cpp"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -3006,7 +3015,7 @@ void yyfree (void * ptr , yyscan_t yyscanner)
 
 /* %ok-for-header */
 
-#line 491 "scanner.l"
+#line 501 "scanner.l"
 
 
 void PushState(const int new_state, yyscan_t yyscanner)
@@ -3072,4 +3081,14 @@ yy::parser::symbol_type GetPreRefToken(
         return yy::parser::make_UNQUOTED_STR(stringLiteral.Release(), location);
     }
     return yy::parser::make_REF_VAR_NAME(stringLiteral.Release(), location);
+}
+
+// simple implementation for current use case
+int isatty(int fd)
+{
+    if(fd == fileno(stdin))
+    {
+        return 1;
+    }
+    return 0;
 }
