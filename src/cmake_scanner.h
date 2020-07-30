@@ -4,6 +4,7 @@
 #include <stdexcept>
 
 #include "scanner_ctx.h"
+#define YY_NO_UNISTD_H 1
 #include "scanner.h"
 
 class CMakeScanner

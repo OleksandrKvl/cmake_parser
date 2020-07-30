@@ -14,10 +14,13 @@
 %option debug
 
 /* Suppresses inclusion of the non-ANSI header file unistd.h */
-/* %option nounistd */
+%option nounistd
 
 /* We don't need interactive mode and related code */
-/* %option never-interactive */
+/*
+%option never-interactive
+%option batch
+*/
 
 /* We don't need these functions */
 %option nounput noinput
@@ -41,10 +44,16 @@
 %x REFERENCE
 %x UNQUOTED_ARG
 
+%top{
+#include <cstdint>
+}
+
 %{
 #include <limits>
 #include "parser.h"
 #include "scanner_ctx.h"
+
+int isatty(int fd);
 
 void PushState(const int new_state, yyscan_t yyscanner);
 void PopState(yyscan_t yyscanner);
@@ -73,7 +82,11 @@ yy::parser::symbol_type GetPreRefToken(
     if(!nextToken.empty())
     {
         location = nextToken.location;
-        return std::move(nextToken);
+        // current yy::parser::symbol_type doesn't clear moved-from token,
+        // thus, we need to do this manually
+        auto token = std::move(nextToken);
+		nextToken.clear();
+        return token;
     }
     location.step();
 %}
@@ -549,4 +562,14 @@ yy::parser::symbol_type GetPreRefToken(
         return yy::parser::make_UNQUOTED_STR(stringLiteral.Release(), location);
     }
     return yy::parser::make_REF_VAR_NAME(stringLiteral.Release(), location);
+}
+
+// simple implementation for current use case
+int isatty(int fd)
+{
+    if(fd == fileno(stdin))
+    {
+        return 1;
+    }
+    return 0;
 }

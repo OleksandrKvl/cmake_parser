@@ -75,6 +75,7 @@
 
     YY_DECL;
     #define YY_HEADER_EXPORT_START_CONDITIONS
+    #define YY_NO_UNISTD_H 1
     #include "scanner.h"
 
     #include "parser_ctx.h"
