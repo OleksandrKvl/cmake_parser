@@ -32,3 +32,10 @@ target_sources(${BIN_NAME}
 target_include_directories(${BIN_NAME} PRIVATE
     ${GENERATED_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR})
+
+option(LOG_RPN_EXPR "Log RPN expression stack" OFF)
+
+if(LOG_RPN_EXPR)
+    target_compile_definitions(${BIN_NAME} PRIVATE
+    "CP_RPN_LOG_EXPR_CREATION=1")
+endif()
