@@ -88,7 +88,7 @@ public:
         PostParse
     };
 
-    void SetEvaluationMode(const EvaluationMode mode)
+    void SetEvaluationMode(const EvaluationMode mode) noexcept
     {
         evalMode = mode;
         parserCtx.immediateEval = (evalMode == EvaluationMode::Immediate);

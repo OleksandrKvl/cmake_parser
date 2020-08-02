@@ -61,7 +61,7 @@ public:
         stringBuf = yy_scan_bytes(str.c_str(), str.size(), yyscanner);
     }
 
-    yyscan_t Raw() noexcept
+    yyscan_t Raw() const noexcept
     {
         return yyscanner;
     }
