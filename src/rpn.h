@@ -210,7 +210,7 @@ public:
     }
 };
 
-class CacheVarRefExpression : public VarRefExpression<NormalVarRefExpression>
+class CacheVarRefExpression : public VarRefExpression<CacheVarRefExpression>
 {
 public:
     explicit CacheVarRefExpression(const std::size_t arity)
@@ -227,7 +227,7 @@ public:
     }
 };
 
-class EnvVarRefExpression : public VarRefExpression<NormalVarRefExpression>
+class EnvVarRefExpression : public VarRefExpression<EnvVarRefExpression>
 {
 public:
     explicit EnvVarRefExpression(const std::size_t arity)
