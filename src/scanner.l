@@ -156,7 +156,7 @@ yy::parser::symbol_type GetPreRefToken(
 }
 
     /* Handle body line-by-line to avoid memory problems with huge strings */
-<BRACKET_SCOPE>[^\]\n]+\n? {
+<BRACKET_SCOPE>[^\]\n]*\n? {
     const auto endsWithLf = (yytext[yyleng - 1] == '\n');
     
     if(endsWithLf)
@@ -175,7 +175,7 @@ yy::parser::symbol_type GetPreRefToken(
 }
 
     /* Preceding ]=* was not part of closing brackets */
-<BRACKET_END>[^\]]+ {
+<BRACKET_END>[^\]\n]+ {
     if(yyextra->isBracketArg)
     {
         stringLiteral.Append(yytext, yyleng);
@@ -457,18 +457,18 @@ yy::parser::symbol_type GetPreRefToken(
     }
 }
 
-<*>\r?\n {
+<FILE_LINE,ARGUMENTS>\r?\n {
     location.lines();
     return yy::parser::make_EOL(location);
 }
 
     /* This should work for non-interactive mode */
-    /* <*>(\r\n)+ {
+    /* <FILE_LINE,ARGUMENTS>(\r\n)+ {
     location.lines(yyleng/2);
     return yy::parser::make_EOL(location);
 }
 
-<*>\n+ {
+<FILE_LINE,ARGUMENTS>\n+ {
     location.lines(yyleng);
     return yy::parser::make_EOL(location);
 } */
@@ -477,7 +477,7 @@ yy::parser::symbol_type GetPreRefToken(
     return yy::parser::make_SPACES(location);
 }
 
-<*>. {
+<*>.|\n {
     return yy::parser::make_YYUNDEF(location);
 }
 
